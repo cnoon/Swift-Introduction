@@ -1,3 +1,12 @@
+//
+//  main.swift
+//  15 - Deinitialization
+//
+//  Created by Christian Noon on 8/30/14.
+//  Copyright (c) 2014 Noondev. All rights reserved.
+//
+
+import Foundation
 
 //======================================
 //       Deinitializers in Action
@@ -20,11 +29,9 @@ class Player {
     var coinsInPurse: Int
     
     init(coins: Int) {
-        println("player created")
         coinsInPurse = Bank.vendCoins(coins)
     }
     deinit {
-        println("player has left the game")
         Bank.receiveCoins(coinsInPurse)
     }
     
@@ -34,7 +41,16 @@ class Player {
 }
 
 var playerOne: Player? = Player(coins: 100)
-playerOne!.coinsInPurse
-Bank.coinsInBank
+println("A new player has joined the game with \(playerOne!.coinsInPurse) coins")
+println("There are now \(Bank.coinsInBank) coins left in the bank")
+println()
+
+playerOne!.winCoins(2_000)
+println("PlayerOne won 2000 coins & now has \(playerOne!.coinsInPurse) coins")
+println("The bank now only has \(Bank.coinsInBank) coins left")
+println()
+
 playerOne = nil
-Bank.coinsInBank // deinit not properly called in playgrounds
+println("PlayerOne has left the game")
+println("The bank now has \(Bank.coinsInBank) coins")
+println()
