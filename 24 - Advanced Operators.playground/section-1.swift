@@ -3,14 +3,17 @@
 //                  Bitwise Operators
 //=======================================================
 
-func bitsToString(var number: UInt8) -> String {
+func bitsToString(number: UInt8) -> String {
+    var number = number
     var bitString = ""
-    for i in 0..<8 {
+
+    for _ in 0..<8 {
         if (number & UInt8(1)) == 1 {
             bitString = "1" + bitString
         } else {
             bitString = "0" + bitString
         }
+
         number = number >> 1
     }
 
@@ -18,53 +21,53 @@ func bitsToString(var number: UInt8) -> String {
 }
 
 // Bitwise NOT Operator - inverts all incoming bits
-println("==== Bitwise NOT Operator (~) ====")
+print("==== Bitwise NOT Operator (~) ====")
 
 let initialBits: UInt8 = 0b00001111
 let invertedBits: UInt8 = ~initialBits
 
-println("initialBits:    \(bitsToString(initialBits))")
-println("invertedBits:   \(bitsToString(invertedBits))")
-println()
+print("initialBits:    \(bitsToString(initialBits))")
+print("invertedBits:   \(bitsToString(invertedBits))")
+print()
 
 // Bitwise AND Operator - final bit equals 1 if both incoming bits equal 1
-println("==== Bitwise AND Operator (&) ====")
+print("==== Bitwise AND Operator (&) ====")
 
 let firstSixBits: UInt8 = 0b11111100
 let lastSixBits: UInt8 = 0b00111111
 let middleFourBits = firstSixBits & lastSixBits
 
-println("firstSixBits:   \(bitsToString(firstSixBits))")
-println("lastSixBits:    \(bitsToString(lastSixBits))")
-println("middleFourBits: \(bitsToString(middleFourBits))")
-println()
+print("firstSixBits:   \(bitsToString(firstSixBits))")
+print("lastSixBits:    \(bitsToString(lastSixBits))")
+print("middleFourBits: \(bitsToString(middleFourBits))")
+print()
 
 // Bitwise OR Operator - final bit equals 1 if either incoming bit equals 1
-println("==== Bitwise OR Operator (|) ====")
+print("==== Bitwise OR Operator (|) ====")
 
 let someBits: UInt8 = 0b10110010
 let moreBits: UInt8 = 0b01011110
 let combinedBits = someBits | moreBits
 
-println("someBits:       \(bitsToString(someBits))")
-println("moreBits:       \(bitsToString(moreBits))")
-println("combinedBits:   \(bitsToString(combinedBits))")
-println()
+print("someBits:       \(bitsToString(someBits))")
+print("moreBits:       \(bitsToString(moreBits))")
+print("combinedBits:   \(bitsToString(combinedBits))")
+print()
 
 // Bitwise XOR Operator - final bit equals 1 if incoming bits are different
-println("==== Bitwise XOR Operator (^) ====")
+print("==== Bitwise XOR Operator (^) ====")
 
 let firstBits: UInt8 = 0b00010100
 let otherBits: UInt8 = 0b00000101
 let outputBits = firstBits ^ otherBits
 
-println("firstBits:      \(bitsToString(firstBits))")
-println("otherBits:      \(bitsToString(otherBits))")
-println("outputBits:     \(bitsToString(outputBits))")
-println()
+print("firstBits:      \(bitsToString(firstBits))")
+print("otherBits:      \(bitsToString(otherBits))")
+print("outputBits:     \(bitsToString(outputBits))")
+print()
 
 // Bitwise Left and Right Shift Operators
-println("==== Bitwise Left and Right Shift Operators (<< >>) ====")
+print("==== Bitwise Left and Right Shift Operators (<< >>) ====")
 
 let shiftBits: UInt8 = 4   // 00000100
 shiftBits << 2             // 00010000
@@ -99,7 +102,6 @@ signedUnderflow = signedUnderflow &- 1
 // Division by zero
 let x = 1
 //let y = x / 0 // throws division by zero error
-let y = x &/ 0
 
 //=======================================================
 //             Precedence and Associativity
@@ -117,6 +119,7 @@ let y = x &/ 0
 struct Vector2D {
     var x = 0.0, y = 0.0
 }
+
 func + (left: Vector2D, right: Vector2D) -> Vector2D {
     return Vector2D(x: left.x + right.x, y: left.y + right.y)
 }
@@ -161,8 +164,9 @@ func != (left: Vector2D, right: Vector2D) -> Bool {
 
 let twoThree = Vector2D(x: 2.0, y: 3.0)
 let anotherTwoThree = Vector2D(x: 2.0, y: 3.0)
+
 if twoThree == anotherTwoThree {
-    println("These two vectors are equivalent.")
+    print("These two vectors are equivalent.")
 }
 
 //=======================================================

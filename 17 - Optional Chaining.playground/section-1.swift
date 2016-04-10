@@ -14,18 +14,19 @@ class Property {
 
 let jerry = Actor()
 //let homeCount = property!.numberOfHomes // runtime error
+
 if let numberOfHomes = jerry.property?.numberOfHomes {
-    println("John's property has \(numberOfHomes) home(s).")
+    print("John's property has \(numberOfHomes) home(s).")
 } else {
-    println("Unable to retrieve the number of homes.")
+    print("Unable to retrieve the number of homes.")
 }
 
 // Add a property to jerry and requery
 jerry.property = Property()
 if let numberOfHomes = jerry.property?.numberOfHomes {
-    println("John's property has \(numberOfHomes) home(s).")
+    print("John's property has \(numberOfHomes) home(s).")
 } else {
-    println("Unable to retrieve the number of homes.")
+    print("Unable to retrieve the number of homes.")
 }
 
 //====================================================================
@@ -39,9 +40,8 @@ class Person {
 class Residence {
     var address: Address?
     var rooms = [Room]()
-    var numberOfRooms: Int {
-        return rooms.count
-    }
+    var numberOfRooms: Int { return rooms.count }
+
     subscript(i: Int) -> Room {
         get {
             return rooms[i]
@@ -52,7 +52,7 @@ class Residence {
     }
     
     func printNumberOfRooms() {
-        println("The number of rooms is \(numberOfRooms)")
+        print("The number of rooms is \(numberOfRooms)")
     }
 }
 
@@ -85,10 +85,11 @@ class Address {
 //====================================================================
 
 let john = Person()
+
 if let roomCount = john.residence?.numberOfRooms {
-    println("John's residence has \(roomCount) room(s)")
+    print("John's residence has \(roomCount) room(s)")
 } else {
-    println("Unable to retrieve the number of rooms.")
+    print("Unable to retrieve the number of rooms.")
 }
 
 let someAddress = Address()
@@ -101,15 +102,15 @@ john.residence?.address = someAddress // fails b/c residence is nil
 //====================================================================
 
 if john.residence?.printNumberOfRooms() != nil {
-    println("It was possible to print the number of rooms")
+    print("It was possible to print the number of rooms")
 } else {
-    println("It was NOT possible to print the number of rooms")
+    print("It was NOT possible to print the number of rooms")
 }
 
 if (john.residence?.address = someAddress) != nil {
-    println("It was possible to set the address.")
+    print("It was possible to set the address.")
 } else {
-    println("It was NOT possible to set the address.")
+    print("It was NOT possible to set the address.")
 }
 
 //====================================================================
@@ -117,9 +118,9 @@ if (john.residence?.address = someAddress) != nil {
 //====================================================================
 
 if let firstRoomName = john.residence?[0].name {
-    println("The first room name is \(firstRoomName)")
+    print("The first room name is \(firstRoomName)")
 } else {
-    println("Unable to retrieve the first room name.")
+    print("Unable to retrieve the first room name.")
 }
 
 john.residence?[0] = Room(name: "Bathroom") // fails b/c residence is nil
@@ -131,31 +132,31 @@ johnsHouse.rooms.append(Room(name: "Kitchen"))
 john.residence = johnsHouse
 
 if let firstRoomName = john.residence?[0].name {
-    println("The first room name is \(firstRoomName)")
+    print("The first room name is \(firstRoomName)")
 } else {
-    println("Unable to retrieve the first room name.")
+    print("Unable to retrieve the first room name.")
 }
 
 // Accessing subscripts of optional type
 var testScores = ["Dave": [86, 82, 84], "Tim": [79, 94, 81]]
 testScores["Dave"]?[0] = 91
-testScores["Tim"]?[0]++
+testScores["Tim"]?[0] += 1
 testScores["Brian"]?[0] = 72
 
 var davesScores = testScores["Dave"]
 davesScores?[1] = 62
 testScores["Dave"] = davesScores
 
-println(testScores)
+print(testScores)
 
 //====================================================================
 //                Link Multiple Levels of Chaining
 //====================================================================
 
 if let johnsStreet = john.residence?.address?.street {
-    println("John's street name is \(johnsStreet)")
+    print("John's street name is \(johnsStreet)")
 } else {
-    println("Unable to retrieve the address.")
+    print("Unable to retrieve the address.")
 }
 
 let johnsAddress = Address()
@@ -164,9 +165,9 @@ johnsAddress.street = "Laurel Street"
 john.residence!.address = johnsAddress
 
 if let johnsStreet = john.residence?.address?.street {
-    println("John's street name is \(johnsStreet)")
+    print("John's street name is \(johnsStreet)")
 } else {
-    println("Unable to retrieve the address.")
+    print("Unable to retrieve the address.")
 }
 
 //====================================================================
@@ -174,13 +175,13 @@ if let johnsStreet = john.residence?.address?.street {
 //====================================================================
 
 if let buildingIdentifier = john.residence?.address?.buildingIdentifier() {
-    println("John's building identifier is \(buildingIdentifier)")
+    print("John's building identifier is \(buildingIdentifier)")
 }
 
 if let beginsWithThe = john.residence?.address?.buildingIdentifier()?.hasPrefix("The") {
     if beginsWithThe {
-        println("John's building identifier begins with \"The\".")
+        print("John's building identifier begins with \"The\".")
     } else {
-        println("John's building identifier does NOT begin with \"The\".")
+        print("John's building identifier does NOT begin with \"The\".")
     }
 }

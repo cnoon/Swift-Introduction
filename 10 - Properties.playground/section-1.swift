@@ -44,9 +44,11 @@ manager.importer.fileName // importer is not initializer until here
 struct Point {
     var x = 0.0, y = 0.0
 }
+
 struct Size {
     var width = 0.0, height = 0.0
 }
+
 struct Rect {
     var origin = Point()
     var size = Size()
@@ -114,10 +116,10 @@ struct AlernativeCuboid {
 class StepCounter {
     var totalSteps: Int = 0 {
         willSet {
-            println("About to set totalSteps to \(newValue)")
+            print("About to set totalSteps to \(newValue)")
         }
         didSet {
-            println("Added \(totalSteps - oldValue) steps")
+            print("Added \(totalSteps - oldValue) steps")
         }
     }
 }
@@ -138,12 +140,14 @@ struct SomeStructure {
         return 10
     }
 }
+
 enum SomeEnumeration {
     static var storedTypeProperty = "Some value"
     static var computedTypeProperty: Int {
         return 20
     }
 }
+
 class SomeClass {
     class var computedTypeProperty: Int {
         return 30

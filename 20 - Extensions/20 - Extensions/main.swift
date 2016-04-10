@@ -12,7 +12,7 @@ import Foundation
 //       Computed Properties
 //===================================
 
-println("==== Computed Properties ====")
+print("==== Computed Properties ====")
 
 extension Double {
     var km: Double { return self * 1_000.0 }
@@ -23,19 +23,19 @@ extension Double {
 }
 
 let oneInch = 25.4.mm
-println("One inch is \(oneInch) meters")
+print("One inch is \(oneInch) meters")
 
 let threeFeet = 3.ft
-println("Three feet is \(threeFeet) meters")
+print("Three feet is \(threeFeet) meters")
 
 let aMarathon = 42.km + 195.m
-println("A marathon is \(aMarathon) meters long")
+print("A marathon is \(aMarathon) meters long")
 
 //===================================
 //           Initializers
 //===================================
 
-println("\n==== Initializers ====")
+print("\n==== Initializers ====")
 
 struct Point {
     var x = 0.0
@@ -50,47 +50,46 @@ struct Size {
 struct Rect {
     var origin = Point()
     var size = Size()
+
     var description: String {
         return "((\(origin.x), \(origin.y)), (\(size.width), \(size.height)))"
     }
 }
 
 let defaultRect = Rect()
-println("defaultRect: \(defaultRect.description)")
+print("defaultRect: \(defaultRect.description)")
 let memberwiseRect = Rect(origin: Point(x: 2.0, y: 2.0), size: Size(width: 5.0, height: 5.0))
-println("memberwiseRect: \(memberwiseRect.description)")
+print("memberwiseRect: \(memberwiseRect.description)")
 
 extension Rect {
     init(center: Point, size: Size) {
-        var originX = center.x - (size.width / 2.0)
-        var originY = center.y - (size.height / 2.0)
+        let originX = center.x - (size.width / 2.0)
+        let originY = center.y - (size.height / 2.0)
         self.init(origin: Point(x: originX, y: originY), size: size)
     }
 }
 
 let centerRect = Rect(center: Point(x: 4.0, y: 4.0), size: Size(width: 3.0, height: 3.0))
-println("centerRect: \(centerRect.description)")
+print("centerRect: \(centerRect.description)")
 
 //===================================
 //            Methods
 //===================================
 
-println("\n==== Methods ====")
+print("\n==== Methods ====")
 
 extension Int {
     func repititions(task: () -> ()) {
-        for i in 1...self {
-            task()
-        }
+        for _ in 1...self { task() }
     }
 }
 
 3.repititions({
-    println("Hello!")
+    print("Hello!")
 })
 
 3.repititions {
-    println("Goodbye!")
+    print("Goodbye!")
 }
 
 // Mutating instance methods
@@ -102,37 +101,39 @@ extension Int {
 
 var someInt = 3
 someInt.square()
-println("someInt squared: \(someInt)")
+print("someInt squared: \(someInt)")
 
 //===================================
 //            Subscripts
 //===================================
 
-println("\n==== Subscripts ====")
+print("\n==== Subscripts ====")
 
 extension Int {
-    subscript(var digitIndex: Int) -> Int {
+    subscript(digitIndex: Int) -> Int {
+        var digitIndex = digitIndex
         var decimalBase = 1
+
         while digitIndex > 0 {
             decimalBase *= 10
-            --digitIndex
+            digitIndex -= 1
         }
 
         return (self / decimalBase) % 10
     }
 }
 
-println("746381295[0]: \(746381295[0])")
-println("746381295[1]: \(746381295[1])")
-println("746381295[2]: \(746381295[2])")
-println("746381295[8]: \(746381295[8])")
-println("746381295[9]: \(746381295[9])") // returns 0 as if it were padded
+print("746381295[0]: \(746381295[0])")
+print("746381295[1]: \(746381295[1])")
+print("746381295[2]: \(746381295[2])")
+print("746381295[8]: \(746381295[8])")
+print("746381295[9]: \(746381295[9])") // returns 0 as if it were padded
 
 //===================================
 //           Nested Types
 //===================================
 
-println("\n==== Nested Types ====")
+print("\n==== Nested Types ====")
 
 extension Int {
     enum Kind {
@@ -164,7 +165,8 @@ func printIntegerKinds(numbers: [Int]) {
             print("+ ")
         }
     }
-    println()
+
+    print()
 }
 
 printIntegerKinds([3, 19, -27, 0, -6, 0, 7])

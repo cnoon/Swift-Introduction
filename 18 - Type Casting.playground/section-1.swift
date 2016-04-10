@@ -47,25 +47,25 @@ var songCount = 0
 
 for item in library {
     if item is Movie {
-        ++movieCount
+        movieCount += 1
     } else if item is Song {
-        ++songCount
+        songCount += 1
     }
 }
 
-println("Media library contains \(movieCount) movies and \(songCount) songs.")
+print("Media library contains \(movieCount) movies and \(songCount) songs.")
 
 //====================================================================
 //                         Downcasting
 //====================================================================
 
-println()
+print()
 
 for item in library {
     if let movie = item as? Movie {
-        println("Movie: \(movie.name) - Directed by: \(movie.director)")
+        print("Movie: \(movie.name) - Directed by: \(movie.director)")
     } else if let song = item as? Song {
-        println("Song: \(song.name) - Performed by: \(song.artist)")
+        print("Song: \(song.name) - Performed by: \(song.artist)")
     }
 }
 
@@ -73,7 +73,7 @@ for item in library {
 //                 Type Casting for Any and AnyObject
 //====================================================================
 
-println()
+print()
 
 // AnyObject
 let someObjects = [
@@ -84,13 +84,13 @@ let someObjects = [
 
 for object in someObjects {
     let movie = object as Movie
-    println("Movie: \(movie.name) - Directed by: \(movie.director)")
+    print("Movie: \(movie.name) - Directed by: \(movie.director)")
 }
 
-println()
+print()
 
 for movie in someObjects as [Movie] {
-    println("Movie: \(movie.name) - Directed by: \(movie.director)")
+    print("Movie: \(movie.name) - Directed by: \(movie.director)")
 }
 
 // Any
@@ -103,29 +103,29 @@ things.append("hello")
 things.append((3.0, 5.0))
 things.append(Movie(name: "Ghostbusters", director: "Ivan Reitman"))
 
-println()
+print()
 
 for thing in things {
     switch thing {
     case 0 as Int:
-        println("Zero as an Int")
+        print("Zero as an Int")
     case 0 as Float:
-        println("Zero as a Float")
+        print("Zero as a Float")
     case 0 as Double:
-        println("Zero as a Double")
+        print("Zero as a Double")
     case let someInt as Int:
-        println("An integer value of \(someInt)")
+        print("An integer value of \(someInt)")
     case let someDouble as Double where someDouble > 0:
-        println("A positive double value of \(someDouble)")
+        print("A positive double value of \(someDouble)")
     case is Double:
-        println("A double value that I don't want to print")
+        print("A double value that I don't want to print")
     case let someString as String:
-        println("A string value of \(someString)")
+        print("A string value of \(someString)")
     case let (x, y) as (Double, Double):
-        println("An (x, y) point of (\(x), \(y))")
+        print("An (x, y) point of (\(x), \(y))")
     case let movie as Movie:
-        println("A Movie: \(movie.name) - Directed by: \(movie.director)")
+        print("A Movie: \(movie.name) - Directed by: \(movie.director)")
     default:
-        println("Something else entirely")
+        print("Something else entirely")
     }
 }

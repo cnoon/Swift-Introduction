@@ -11,7 +11,7 @@ var emptyString = ""
 var anotherEmptyString = String()
 
 if emptyString.isEmpty && anotherEmptyString.isEmpty {
-    println("Nothing to see here")
+    print("Nothing to see here")
 }
 
 // String mutability
@@ -26,8 +26,8 @@ let constantString = "Highlander"
 //=======================================
 
 // Iterating through characters
-for character in "Baby chick!🐥" {
-    println(character)
+for character in "Baby chick!🐥".characters {
+    print(character)
 }
 
 // Creating characters directly
@@ -43,7 +43,7 @@ instruction += string2
 
 let exclamationMark: Character = "!"
 welcome.append(exclamationMark)
-println(welcome)
+print(welcome)
 
 // String interpolation
 let multiplier = 3
@@ -81,14 +81,17 @@ let enclosedEAcute: Character = "\u{E9}\u{20DD}"
 
 // countElements global function
 let unusualMenagerie = "Koala 🐨, Snail 🐌, Penguin 🐧, Dromedary 🐪"
-println("unusualMenagerie has \(countElements(unusualMenagerie)) characters")
+print("unusualMenagerie has \(unusualMenagerie.characters.count) characters")
 
 // Character count with Extreme Grapheme Clusters
 var word = "cafe"
-println("the number of characters in \(word) is \(countElements(word))")
+print("the number of characters in \(word) is \((word).characters.count)")
 
 word += "\u{301}"
-println("the number of characters in \(word) is \(countElements(word))")
+print("the number of characters in \(word) is \((word).characters.count)")
+
+var emoji = "👍"
+emoji.characters.count
 
 //=======================================
 //          Comparing Strings
@@ -97,24 +100,27 @@ println("the number of characters in \(word) is \(countElements(word))")
 // String and Character Equality
 let quotation = "We're a lot alike, you and I."
 let sameQuotation = "We're a lot alike, you and I."
+
 if quotation == sameQuotation {
-    println("These two strings are considered equal")
+    print("These two strings are considered equal")
 }
 
 // Even if extreme grapheme clusters are different, if they visually appear the same,
 // then they are equal
 let eAcuteQuestion = "Voulez-vous un caf\u{E9}"
 let combinedEAcuteQuestion = "Voulez-vous un caf\u{65}\u{301}"
+
 if eAcuteQuestion == combinedEAcuteQuestion {
-    println("These two strings are considered equal")
+    print("These two strings are considered equal")
 }
 
 // The English capital A is not equal to the Russian capital A b/c
 // they are visually different
 let latinCapitalLetterA: Character = "\u{41}"
 let cyrillicCapitalLetterA: Character = "\u{0410}"
+
 if latinCapitalLetterA != cyrillicCapitalLetterA {
-    println("These two characters are not equivalent")
+    print("These two characters are not equivalent")
 }
 
 // Prefix Equality
@@ -133,24 +139,26 @@ let romeoAndJuliet = [
 ]
 
 var act1SceneCount = 0
-for scene in romeoAndJuliet {
-    if scene.hasPrefix("Act 1 ") {
-        ++act1SceneCount
-    }
+
+for scene in romeoAndJuliet where scene.hasPrefix("Act 1 ") {
+    act1SceneCount += 1
 }
-println("There are \(act1SceneCount) scenes in Act 1")
+
+print("There are \(act1SceneCount) scenes in Act 1")
 
 // Suffix Equality
 var mansionCount = 0
 var cellCount = 0
+
 for scene in romeoAndJuliet {
     if scene.hasSuffix("Capulet's mansion") {
-        ++mansionCount
+        mansionCount += 1
     } else if scene.hasSuffix("Friar Lawrence's cell") {
-        ++cellCount
+        cellCount += 1
     }
 }
-println("\(mansionCount) mansion scenes and \(cellCount) cell scenes")
+
+print("\(mansionCount) mansion scenes and \(cellCount) cell scenes")
 
 //=======================================
 //  Unicode Representations of Strings
@@ -162,7 +170,9 @@ let dogString = "Dog\u{203C}\u{1F436}"
 for codeUnit in dogString.utf8 {
     print("\(codeUnit) ")
 }
-println()
+
+print()
+
 // 68 111 103 226 128 188 240 159 144 182
 // D  o   g   [   !!    ] [     🐶      ]
 // 1b 1b  1b      3b            4b        // b = byte
@@ -171,7 +181,9 @@ println()
 for codeUnit in dogString.utf16 {
     print("\(codeUnit) ")
 }
-println()
+
+print()
+
 // 68 111 103 8252 55357 56374
 // D  o   g   !!   [    🐶   ]
 // 2b 2b  2b  2b        4b     // b = byte
@@ -180,12 +192,14 @@ println()
 for scalar in dogString.unicodeScalars {
     print("\(scalar.value) ")
 }
-println()
+
+print()
+
 // 68 111 103 8252 128054
 // D  o   g   !!   🐶
 // 4b 4b  4b  4b   4b   // b = byte
 
 // Print out individual unicode scalars
 for scalar in dogString.unicodeScalars {
-    println("\(scalar)")
+    print("\(scalar)")
 }

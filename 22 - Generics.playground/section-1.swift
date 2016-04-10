@@ -23,14 +23,14 @@ func swapTwoDoubles(inout a: Double, inout b: Double) {
 
 var someInt = 3
 var anotherInt = 107
-swapTwoInts(&someInt, &anotherInt)
-println("someInt: \(someInt) anotherInt: \(anotherInt)")
+swapTwoInts(&someInt, b: &anotherInt)
+print("someInt: \(someInt) anotherInt: \(anotherInt)")
 
 //=======================================
 //           Generic Functions
 //=======================================
 
-println()
+print()
 
 func swapTwoValues<T>(inout a: T, inout b: T) {
     let temporaryA = a
@@ -40,13 +40,13 @@ func swapTwoValues<T>(inout a: T, inout b: T) {
 
 someInt = 3
 anotherInt = 107
-swapTwoValues(&someInt, &anotherInt)
-println("someInt: \(someInt) anotherInt: \(anotherInt)")
+swapTwoValues(&someInt, b: &anotherInt)
+print("someInt: \(someInt) anotherInt: \(anotherInt)")
 
 var someString = "hello"
 var anotherString = "world"
-swapTwoValues(&someString, &anotherString)
-println("someString: \(someString) anotherString: \(anotherString)")
+swapTwoValues(&someString, b: &anotherString)
+print("someString: \(someString) anotherString: \(anotherString)")
 
 //=======================================
 //         Naming Type Parameters
@@ -59,7 +59,7 @@ println("someString: \(someString) anotherString: \(anotherString)")
 //             Generic Types
 //=======================================
 
-println()
+print()
 
 struct IntStack {
     var items = [Int]()
@@ -67,6 +67,7 @@ struct IntStack {
     mutating func push(item: Int) {
         items.append(item)
     }
+
     mutating func pop() -> Int {
         return items.removeLast()
     }
@@ -79,6 +80,7 @@ struct Stack<T> {
     mutating func push(item: T) {
         items.append(item)
     }
+
     mutating func pop() -> T {
         return items.removeLast()
     }
@@ -93,14 +95,14 @@ stackOfStrings.push("cuatro")
 
 while !stackOfStrings.isEmpty {
     let fromTheTop = stackOfStrings.pop()
-    println(fromTheTop)
+    print(fromTheTop)
 }
 
 //=======================================
 //       Extending a Generic Type
 //=======================================
 
-println()
+print()
 
 extension Stack {
     var topItem: T? {
@@ -112,14 +114,14 @@ stackOfStrings.push("uno")
 stackOfStrings.push("dos")
 
 if let topItem = stackOfStrings.topItem {
-    println("The top item on the stack is \(topItem)")
+    print("The top item on the stack is \(topItem)")
 }
 
 //=======================================
 //            Type Constraints
 //=======================================
 
-println()
+print()
 
 // Type constraint syntax
 class SomeClass {}
@@ -132,7 +134,7 @@ func someFunction<T: SomeClass, U: SomeProtocol>(someT: T, someU: U) {
 
 // Type constraints in action
 func findStringIndex(array: [String], valueToFind: String) -> Int? {
-    for (index, value) in enumerate(array) {
+    for (index, value) in array.enumerate() {
         if value == valueToFind {
             return index
         }
@@ -142,37 +144,37 @@ func findStringIndex(array: [String], valueToFind: String) -> Int? {
 }
 
 let strings = ["cat", "dog", "llama", "parakeet", "terrapin"]
-if let foundIndex = findStringIndex(strings, "llama") {
-    println("The index of llama is \(foundIndex)")
+
+if let foundIndex = findStringIndex(strings, valueToFind: "llama") {
+    print("The index of llama is \(foundIndex)")
 }
 
 func findIndex<T: Equatable>(array: [T], valueToFind: T) -> Int? {
-    for (index, value) in enumerate(array) {
-        if value == valueToFind {
-            return index
-        }
+    for (index, value) in array.enumerate() where value == valueToFind {
+        return index
     }
+
     return nil
 }
 
-if let foundIndex = findIndex(strings, "llama") {
-    println("The index of llama is \(foundIndex)")
+if let foundIndex = findIndex(strings, valueToFind: "llama") {
+    print("The index of llama is \(foundIndex)")
 }
 
-let doubleIndex = findIndex([3.14159, 0.1, 0.25], 9.3)
-println(doubleIndex)
+let doubleIndex = findIndex([3.14159, 0.1, 0.25], valueToFind: 9.3)
+print(doubleIndex)
 
-let stringIndex = findIndex(["Mike", "Malcolm", "Andrea"], "Andrea")
-println(stringIndex)
+let stringIndex = findIndex(["Mike", "Malcolm", "Andrea"], valueToFind: "Andrea")
+print(stringIndex)
 
 //=======================================
 //           Associated Types
 //=======================================
 
-println()
+print()
 
 protocol Container {
-    typealias ItemType
+    associatedtype ItemType
     mutating func append(item: ItemType)
     var count: Int { get }
     subscript(i: Int) -> ItemType { get }
@@ -185,6 +187,7 @@ struct SuperStack<T>: Container {
     mutating func push(item: T) {
         items.append(item)
     }
+
     mutating func pop() -> T {
         return items.removeLast()
     }
@@ -193,9 +196,11 @@ struct SuperStack<T>: Container {
     mutating func append(item: T) {
         items.append(item)
     }
+
     var count: Int {
         return items.count
     }
+
     subscript(i: Int) -> T {
         return items[i]
     }
@@ -208,9 +213,9 @@ superstack.append("Eggs")
 superstack.append("Bacon")
 let bacon = superstack.pop()
 
-println(superstack.count)
-println(superstack[1])
-println(superstack[2])
+print(superstack.count)
+print(superstack[1])
+print(superstack[2])
 
 // Extending an existing type to specify an associated type
 extension Array: Container {}
@@ -219,7 +224,7 @@ extension Array: Container {}
 //            Where Clauses
 //=======================================
 
-println()
+print()
 
 func allItemsMatch<T1: Container, T2: Container
     where T1.ItemType == T2.ItemType, T1.ItemType: Equatable>
@@ -244,8 +249,8 @@ stringSuperStack.push("tres")
 
 var arrayOfStrings = ["uno", "dos", "tres"]
 
-if allItemsMatch(stringSuperStack, arrayOfStrings) {
-    println("All items match")
+if allItemsMatch(stringSuperStack, anotherContainer: arrayOfStrings) {
+    print("All items match")
 } else {
-    println("Not all items match.")
+    print("Not all items match.")
 }

@@ -29,7 +29,7 @@ let languageName = "Swift"
 
 // println adds a newline at the end
 print(languageName)
-println(languageName)
+print(languageName)
 
 //=======================================
 //              Comments
@@ -42,7 +42,7 @@ println(languageName)
 //              Semicolons
 //=======================================
 
-let cat = "[]" ; println(cat)
+let cat = "[]" ; print(cat)
 
 //=======================================
 //              Integers
@@ -102,14 +102,14 @@ let turnipsAreDelicious = false
 
 // Can only evaluate booleans in conditionals
 if turnipsAreDelicious {
-    println("Mmmm, tasty turnips")
+    print("Mmmm, tasty turnips")
 } else {
-    println("Ewww, turnips are horrible")
+    print("Ewww, turnips are horrible")
 }
 
 let i = 1
 if i == 1 {
-    println("Magic")
+    print("Magic")
 }
 
 //=======================================
@@ -118,25 +118,25 @@ if i == 1 {
 
 // Create a tuple
 let http404Error = (404, "Not Found")
-println(http404Error)
+print(http404Error)
 
 // Pull all values back out
 let (statusCode, statusMessage) = http404Error
-println("The status code is \(statusCode)")
-println("The status message is \(statusMessage)")
+print("The status code is \(statusCode)")
+print("The status message is \(statusMessage)")
 
 // Pull only one value back out
 let (onlyStatusCode, _) = http404Error
-println("The status code is \(statusCode)")
+print("The status code is \(statusCode)")
 
 // Access individual elements of the tuple w/o pulling them out
-println("The status code is \"\(http404Error.0)\"")
-println("The status message is \"\(http404Error.1)\"")
+print("The status code is \"\(http404Error.0)\"")
+print("The status message is \"\(http404Error.1)\"")
 
 // Name individual tuple elements
 let http200Status = (statusCode: 200, description: "OKAY")
-println("The status code is \"\(http200Status.statusCode)\"")
-println("The description is \"\(http200Status.description)\"")
+print("The status code is \"\(http200Status.statusCode)\"")
+print("The description is \"\(http200Status.description)\"")
 
 //=======================================
 //              Optionals
@@ -144,8 +144,8 @@ println("The description is \"\(http200Status.description)\"")
 
 // Convert string to int
 let possibleNumber = "123"
-let convertedNumber: Int? = possibleNumber.toInt()
-println("Integer: \(convertedNumber)")
+let convertedNumber: Int? = Int(possibleNumber)
+print("Integer: \(convertedNumber)")
 
 // You can only nil out an optional
 var serverResponseCode: Int? = 404
@@ -158,20 +158,20 @@ var surveyAnswer: String?
 
 // If statements and forced unwrapping
 if convertedNumber != nil {
-    println("convertedNumber contains integer.")
+    print("convertedNumber contains integer.")
 }
 
 if convertedNumber != nil {
-    println("convertedNumber == \(convertedNumber)") // still an optional
-    println("convertedNumber == \(convertedNumber!)") // grabs the integer value
+    print("convertedNumber == \(convertedNumber)") // still an optional
+    print("convertedNumber == \(convertedNumber!)") // grabs the integer value
 }
 
 // Optional binding
-if let actualNumber = possibleNumber.toInt() {
-    println("\(possibleNumber) has an integer value of \(actualNumber)")
+if let actualNumber = Int(possibleNumber){
+    print("\(possibleNumber) has an integer value of \(actualNumber)")
 }
 else {
-    println("\(possibleNumber) could not be converted to an integer")
+    print("\(possibleNumber) could not be converted to an integer")
 }
 
 // Implicitly unwrapped optionals
@@ -182,11 +182,11 @@ let assumedString: String! = "An implicitly unwrapped optional string."
 let implicitString: String = assumedString
 
 if assumedString != nil {
-    println(assumedString)
+    print(assumedString)
 }
 
 if let definiteString = assumedString {
-    println(definiteString)
+    print(definiteString)
 }
 
 //=======================================

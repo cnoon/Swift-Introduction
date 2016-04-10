@@ -12,17 +12,18 @@ import Foundation
 //                           ARC in Action
 //=======================================================================
 
-println("==== ARC in Action ====")
+print("==== ARC in Action ====")
 
 class Actor {
     let name: String
     
     init(name: String) {
         self.name = name
-        println("\(name) is being initialized")
+        print("\(name) is being initialized")
     }
+
     deinit {
-        println("\(name) is being deinitialized")
+        print("\(name) is being deinitialized")
     }
 }
 
@@ -35,17 +36,17 @@ reference2 = reference1
 reference3 = reference1
 
 reference1 = nil
-println("nil'd out reference1")
+print("nil'd out reference1")
 reference2 = nil
-println("nil'd out reference2")
+print("nil'd out reference2")
 reference3 = nil
-println("nil'd out reference3")
+print("nil'd out reference3")
 
 //=======================================================================
 //            Strong Reference Cycles Between Class Instances
 //=======================================================================
 
-println("\n==== Strong Reference Cycles Between Class Instances ====")
+print("\n==== Strong Reference Cycles Between Class Instances ====")
 
 // Strong Reference Cycle Example
 class Person {
@@ -55,8 +56,9 @@ class Person {
     init(name: String) {
         self.name = name
     }
+
     deinit {
-        println("\(name) is being deinitialized")
+        print("\(name) is being deinitialized")
     }
 }
 
@@ -67,8 +69,9 @@ class Apartment {
     init(number: Int) {
         self.number = number
     }
+
     deinit {
-        println("Apartment #\(number)")
+        print("Apartment #\(number)")
     }
 }
 
@@ -83,13 +86,13 @@ number73!.tenant = john
 
 john = nil
 number73 = nil
-println("john and number73 do NOT get deinitialized due to strong reference cycle!!!")
+print("john and number73 do NOT get deinitialized due to strong reference cycle!!!")
 
 //=======================================================================
 //        Resolving Strong Reference Cycles Between Class Instances
 //=======================================================================
 
-println("\n==== Resolving Strong Reference Cycles Between Class Instances ====")
+print("\n==== Resolving Strong Reference Cycles Between Class Instances ====")
 
 // Weak references example
 class Person2 {
@@ -99,8 +102,9 @@ class Person2 {
     init(name: String) {
         self.name = name
     }
+
     deinit {
-        println("\(name) is being deinitialized")
+        print("\(name) is being deinitialized")
     }
 }
 
@@ -111,8 +115,9 @@ class Apartment2 {
     init(number: Int) {
         self.number = number
     }
+
     deinit {
-        println("Apartment #\(number) is being deinitialized")
+        print("Apartment #\(number) is being deinitialized")
     }
 }
 
@@ -132,7 +137,7 @@ number732 = nil
 //                        Unowned References
 //=======================================================================
 
-println("\n==== Unowned References ====")
+print("\n==== Unowned References ====")
 
 class Customer {
     let name: String
@@ -141,8 +146,9 @@ class Customer {
     init(name: String) {
         self.name = name
     }
+
     deinit {
-        println("\(name) is being deinitialized")
+        print("\(name) is being deinitialized")
     }
 }
 
@@ -154,8 +160,9 @@ class CreditCard {
         self.number = number
         self.customer = customer
     }
+
     deinit {
-        println("Card #\(number) is being deinitialized")
+        print("Card #\(number) is being deinitialized")
     }
 }
 
@@ -168,7 +175,7 @@ jerry = nil
 //    Unowned References and Implicitly Unwrapped Optional Properties
 //=======================================================================
 
-println("\n==== Unowned References and Implicitly Unwrapped Optional Properties ====")
+print("\n==== Unowned References and Implicitly Unwrapped Optional Properties ====")
 
 class Country {
     let name: String
@@ -178,8 +185,9 @@ class Country {
         self.name = name
         self.capitalCity = City(name: capitalName, country: self)
     }
+
     deinit {
-        println("\(name) is being deinitialized")
+        print("\(name) is being deinitialized")
     }
 }
 
@@ -191,20 +199,21 @@ class City {
         self.name = name
         self.country = country
     }
+
     deinit {
-        println("\(name) is being deinitialized")
+        print("\(name) is being deinitialized")
     }
 }
 
 var country: Country? = Country(name: "Canada", capitalName: "Ottawa")
-println("Country: \"\(country!.name)\" with Capital City: \"\(country!.capitalCity.name)\"")
+print("Country: \"\(country!.name)\" with Capital City: \"\(country!.capitalCity.name)\"")
 country = nil
 
 //=======================================================================
 //                Strong Reference Cycles for Closures
 //=======================================================================
 
-println("\n==== Strong Reference Cycles for Closures ====")
+print("\n==== Strong Reference Cycles for Closures ====")
 
 class HTMLElement {
     let name: String
@@ -222,23 +231,24 @@ class HTMLElement {
         self.name = name
         self.text = text
     }
+
     deinit {
-        println("\(name) is being deinitialized")
+        print("\(name) is being deinitialized")
     }
 }
 
 var paragraph: HTMLElement? = HTMLElement(name: "p", text: "hello, world")
 let htmlClosure = paragraph!.asHTML
-println(htmlClosure())
+print(htmlClosure())
 
 paragraph = nil
-println("paragraph is not deinitialized b/c the closure is holding onto paragraph")
+print("paragraph is not deinitialized b/c the closure is holding onto paragraph")
 
 //=======================================================================
 //          Resolving Strong Reference Cycles for Closures
 //=======================================================================
 
-println("\n==== Resolving Strong Reference Cycles for Closures ====")
+print("\n==== Resolving Strong Reference Cycles for Closures ====")
 
 class HTMLElement2 {
     let name: String
@@ -257,12 +267,13 @@ class HTMLElement2 {
         self.name = name
         self.text = text
     }
+
     deinit {
-        println("\(name) is being deinitialized")
+        print("\(name) is being deinitialized")
     }
 }
 
 var paragraph2: HTMLElement2? = HTMLElement2(name: "p", text: "hello, world")
 let htmlClosure2 = paragraph2!.asHTML
-println(htmlClosure2())
+print(htmlClosure2())
 paragraph2 = nil

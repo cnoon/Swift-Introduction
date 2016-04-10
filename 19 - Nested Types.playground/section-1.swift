@@ -29,7 +29,7 @@ struct BlackjackCard {
             case .Jack, .Queen, .King:
                 return Values(first: 10, second: nil)
             default:
-                return Values(first: self.toRaw(), second: nil)
+                return Values(first: self.rawValue, second: nil)
             }
         }
     }
@@ -38,19 +38,21 @@ struct BlackjackCard {
     let rank: Rank
     let suit: Suit
     var description: String {
-        var output = "Suit is \(suit.toRaw()), value is \(rank.values.first)"
+        var output = "Suit is \(suit.rawValue), value is \(rank.values.first)"
+
         if let second = rank.values.second {
             output += " or \(second)"
         }
+
         return output
     }
 }
 
 let theAceOfSpades = BlackjackCard(rank: .Ace, suit: .Spades)
-println("theAceOfSpades: \(theAceOfSpades.description)")
+print("theAceOfSpades: \(theAceOfSpades.description)")
 
 //===================================
 //     Referring to Nested Types
 //===================================
 
-let heartsSymbol = BlackjackCard.Suit.Hearts.toRaw()
+let heartsSymbol = BlackjackCard.Suit.Hearts.rawValue

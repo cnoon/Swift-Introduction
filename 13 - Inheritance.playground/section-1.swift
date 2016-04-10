@@ -50,7 +50,7 @@ tandem.description
 // Overridding methods
 class Train: Vehicle {
     override func makeNoise() {
-        println("Choo Choo")
+        print("Choo Choo")
     }
 }
 
@@ -94,7 +94,7 @@ final class MuscleCar: Car {
 class ManualCar: Car {
     final var tireWidth: Double = 0.0
     final override func makeNoise() {
-        println("Waahhh waahhh")
+        print("Waahhh waahhh")
     }
 }
 

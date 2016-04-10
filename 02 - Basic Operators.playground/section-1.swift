@@ -16,8 +16,8 @@ var a = 5
 a = b
 
 let (x, y) = (1, 2)
-println(x)
-println(y)
+print(x)
+print(y)
 
 //if x = y {
     // this is not valid b/c x = y does not return a value
@@ -25,7 +25,7 @@ println(y)
 
 let possibleValue: Int? = 10
 if let actualValue = possibleValue {
-    println("this is valid")
+    print("this is valid")
 }
 
 //=======================================
@@ -40,9 +40,9 @@ if let actualValue = possibleValue {
 
 // Basic arithmetic operators with strings and characters
 "hello, " + "world"
-let dog: Character = "*"
+var dog: Character = "*"
 let cow: Character = "*"
-let dogCow = dog + cow
+let dogCow = String(dog) + String(cow)
 
 //=======================================
 //          Remainder Operator
@@ -58,17 +58,6 @@ let dogCow = dog + cow
 //=======================================
 //             Unary Operators
 //=======================================
-
-// Increment and Decrement Operators
-var i = 0
-++i
---i
-
-var c = 0
-let d = ++c
-c
-let e = c++ // don't use me!!!
-c
 
 // Unary Minus Operator
 let three = 3
@@ -100,6 +89,7 @@ let alsoMinusSix = +minusSix // pointless, never use!
 
 var f = 1
 f += 2 // equals f = f + 2
+f -= 2 // equals f = f - 2
 
 //=======================================
 //          Comparison Operators
@@ -113,10 +103,11 @@ f += 2 // equals f = f + 2
 2 <= 1
 
 let name = "world"
+
 if name == "world" {
-    println("hello, world")
+    print("hello, world")
 } else {
-    println("I'm sorry \(name), but I don't recognize you")
+    print("I'm sorry \(name), but I don't recognize you")
 }
 
 //=======================================
@@ -149,13 +140,14 @@ colorNameToUse = userDefinedColorName ?? defaultColorName
 
 // Closed Range Operator
 for index in 1...5 {
-    println("\(index) times 5 is \(index * 5)")
+    print("\(index) times 5 is \(index * 5)")
 }
 
 // Half-Open Range Operator
 let names = ["Anna", "Alex", "Brian", "Jack"]
+
 for index in 0..<names.count {
-    println("Person \(index) is called \(names[index])")
+    print("Person \(index) is called \(names[index])")
 }
 
 //=======================================
@@ -164,38 +156,41 @@ for index in 0..<names.count {
 
 // Logical NOT operator
 let allowedEntry = false
+
 if !allowedEntry {
-    println("access denied!")
+    print("access denied!")
 }
 
 // Logical AND operator
 let enteredDoorCode = true
 let passedRetinaScan = false
+
 if enteredDoorCode && passedRetinaScan {
-    println("Welcome!")
+    print("Welcome!")
 } else {
-    println("Access Denied!")
+    print("Access Denied!")
 }
 
 // Logical OR operator
 let hasDoorKey = false
 let knowsOverridePassword = true
+
 if hasDoorKey || knowsOverridePassword {
-    println("Welcome!")
+    print("Welcome!")
 } else {
-    println("Access Denied!")
+    print("Access Denied!")
 }
 
 // Combining Logical Operators
 if enteredDoorCode && passedRetinaScan || hasDoorKey || knowsOverridePassword {
-    println("Welcome!")
+    print("Welcome!")
 } else {
-    println("Access Denied!")
+    print("Access Denied!")
 }
 
 // Explicit Parentheses
 if (enteredDoorCode && passedRetinaScan) || hasDoorKey || knowsOverridePassword {
-    println("Welcome!")
+    print("Welcome!")
 } else {
-    println("Access Denied!")
+    print("Access Denied!")
 }

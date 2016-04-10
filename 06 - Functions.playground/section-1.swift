@@ -29,7 +29,7 @@ func halfOpenRangeLength(start: Int, end: Int) -> Int {
     return end - start
 }
 
-halfOpenRangeLength(1, 10)
+halfOpenRangeLength(1, end: 10)
 
 // Function without parameters
 func sayHelloWorld() -> String {
@@ -40,15 +40,15 @@ sayHelloWorld()
 
 // Functions without return values
 func sayGoodbye(personName: String) {
-    println("Goodbye \(personName)!")
+    print("Goodbye \(personName)!")
 }
 
 sayGoodbye("Christian")
 
 // Ignoring function return values
 func printAndCount(stringToPrint: String) -> Int {
-    println(stringToPrint)
-    return countElements(stringToPrint)
+    print(stringToPrint)
+    return (stringToPrint).characters.count
 }
 
 func printWithoutCounting(stringToPrint: String) {
@@ -62,7 +62,7 @@ printWithoutCounting("Hello World!") // does not return value
 func minMax(array: [Int]) -> (min: Int, max: Int) {
     var currentMin = array[0]
     var currentMax = array[0]
-    
+
     for value in array[1..<array.count] {
         if value < currentMin {
             currentMin = value
@@ -70,7 +70,7 @@ func minMax(array: [Int]) -> (min: Int, max: Int) {
             currentMax = value
         }
     }
-    
+
     return (currentMin, currentMax)
 }
 
@@ -81,10 +81,10 @@ func minMaxWithCheck(array: [Int]) -> (min: Int, max: Int)? {
     if array.isEmpty {
         return nil
     }
-    
+
     var currentMin = array[0]
     var currentMax = array[0]
-    
+
     for value in array[1..<array.count] {
         if value < currentMin {
             currentMin = value
@@ -92,7 +92,7 @@ func minMaxWithCheck(array: [Int]) -> (min: Int, max: Int)? {
             currentMax = value
         }
     }
-    
+
     return (currentMin, currentMax)
 }
 
@@ -101,7 +101,7 @@ minMaxWithCheck([])
 minMaxWithCheck([8, -6, 2, 109, 3, 71])
 
 if let bounds = minMaxWithCheck([8, -6, 2, 109, 3, 71]) {
-    println("min is \(bounds.min) and max is \(bounds.max)")
+    print("min is \(bounds.min) and max is \(bounds.max)")
 }
 
 //=======================================
@@ -113,7 +113,7 @@ func join(s1: String, s2: String, joiner: String) -> String {
     return s1 + joiner + s2
 }
 
-join("Hello", "World", ", ")
+join("Hello", s2: "World", joiner: ", ")
 
 // External parameters
 func join(string s1: String, toString s2: String, withJoiner joiner: String) -> String {
@@ -123,13 +123,13 @@ func join(string s1: String, toString s2: String, withJoiner joiner: String) -> 
 join(string: "Hello", toString: "World", withJoiner: ", ")
 
 // Shorthand external parameter names
-func containsCharacter(#string: String, #characterToFind: Character) -> Bool {
-    for character in string {
+func containsCharacter(string string: String, characterToFind: Character) -> Bool {
+    for character in string.characters {
         if character == characterToFind {
             return true
         }
     }
-    
+
     return false
 }
 
@@ -148,7 +148,7 @@ func joinMissingExternal(s1: String, s2: String, joiner: String = " ") -> String
     return s1 + joiner + s2
 }
 
-joinMissingExternal("Hello", "World", joiner: "-")
+joinMissingExternal("Hello", s2: "World", joiner: "-")
 
 // Variadic parameters
 func average(numbers: Double...) -> Double {
@@ -156,30 +156,33 @@ func average(numbers: Double...) -> Double {
     for number in numbers {
         total += number
     }
-    
+
     return total / Double(numbers.count)
 }
 
 average(1, 2, 3, 4, 5, 6)
 average(3, 8.25, 18.75)
 
-// Constant and variable parameters
-func alignRight(var string: String, count: Int, pad: Character) -> String {
-    let amountToPad = count - countElements(string)
+// Constant parameters
+func alignRight(string: String, count: Int, pad: Character) -> String {
+    var string = string
+    let amountToPad = count - string.characters.count
+
     if amountToPad < 1 {
         return string
     }
-    
+
     let padString = String(pad)
+
     for _ in 1...amountToPad {
         string += padString
     }
-    
+
     return string
 }
 
 let originalString = "hello"
-alignRight(originalString, 10, "-")
+alignRight(originalString, count: 10, pad: "-")
 originalString // remains unchanged
 
 // In-out parameters
@@ -191,9 +194,9 @@ func swapTwoInts(inout a: Int, inout b: Int) {
 
 var someInt = 3
 var anotherInt = 107
-println("(\(someInt), \(anotherInt))")
-swapTwoInts(&someInt, &anotherInt)
-println("(\(someInt), \(anotherInt))")
+print("(\(someInt), \(anotherInt))")
+swapTwoInts(&someInt, b: &anotherInt)
+print("(\(someInt), \(anotherInt))")
 
 //=======================================
 //           Function Types
@@ -203,6 +206,7 @@ println("(\(someInt), \(anotherInt))")
 func addTwoInts(a: Int, b: Int) -> Int { // Type = (Int, Int) -> Int
     return a + b
 }
+
 func multiplyTwoInts(a: Int, b: Int) -> Int { // Type = (Int, Int) -> Int
     return a * b
 }
@@ -215,18 +219,20 @@ mathFunction(2, 3)
 
 // Function types as parameter types
 func printMathResult(mathFunction: (Int, Int) -> Int, a: Int, b: Int) {
-    println("Result: \(mathFunction(a, b))")
+    print("Result: \(mathFunction(a, b))")
 }
 
-printMathResult(addTwoInts, 3, 5)
+printMathResult(addTwoInts, a: 3, b: 5)
 
 // Function types as return types
 func stepForward(input: Int) -> Int {
     return input + 1
 }
+
 func stepBackward(input: Int) -> Int {
     return input - 1
 }
+
 func chooseStepFunction(backwards: Bool) -> (Int) -> Int {
     return backwards ? stepBackward : stepForward
 }
@@ -234,12 +240,14 @@ func chooseStepFunction(backwards: Bool) -> (Int) -> Int {
 var currentValue = 3
 var moveCloserToZero = chooseStepFunction(currentValue > 0)
 
-println("Counting down to zero:")
+print("Counting down to zero:")
+
 while currentValue != 0 {
-    println("\(currentValue)...")
+    print("\(currentValue)...")
     currentValue = moveCloserToZero(currentValue)
 }
-println("zero!")
+
+print("zero!")
 
 //=======================================
 //           Nested Functions
@@ -248,16 +256,18 @@ println("zero!")
 func chooseNestedStepFunction(backwards: Bool) -> (Int) -> Int {
     func stepForward(input: Int) -> Int { return input + 1 }
     func stepBackward(input: Int) -> Int { return input - 1 }
-    
+
     return backwards ? stepBackward : stepForward
 }
 
 currentValue = -4
 moveCloserToZero = chooseNestedStepFunction(currentValue > 0)
 
-println("Counting down to zero:")
+print("Counting down to zero:")
+
 while currentValue != 0 {
-    println("\(currentValue)...")
+    print("\(currentValue)...")
     currentValue = moveCloserToZero(currentValue)
 }
-println("zero!")
+
+print("zero!")

@@ -1,4 +1,6 @@
 
+import Foundation
+
 //======================================================
 //                  Protocol Syntax
 //======================================================
@@ -23,7 +25,7 @@ protocol SomeProtocol {
 
 // Type property protocol
 protocol AnotherProtocol {
-    class var sometTypeProperty: Int { get set }
+    static var sometTypeProperty: Int { get set }
 }
 
 // Instance property protocol
@@ -40,6 +42,7 @@ let john = Person(fullName: "John Appleseed")
 class Starship: FullyNamed {
     var name: String
     var prefix: String?
+
     var fullName: String {
         return (prefix != nil ? prefix! + " " : "") + name
     }
@@ -58,7 +61,7 @@ ncc1701.fullName
 //======================================================
 
 protocol SomeTypeProtocol {
-    class func someTypeMethod()
+    static func someTypeMethod()
 }
 
 protocol RandomNumberGenerator {
@@ -78,8 +81,8 @@ class LinearConguentialGenerator: RandomNumberGenerator {
 }
 
 let generator = LinearConguentialGenerator()
-println("Here's a random number: \(generator.random())")
-println("And another one: \(generator.random())")
+print("Here's a random number: \(generator.random())")
+print("And another one: \(generator.random())")
 
 //======================================================
 //            Mutating Method Requirements
@@ -150,15 +153,16 @@ class Dice {
 }
 
 var d6 = Dice(sides: 6, generator: LinearConguentialGenerator())
+
 for _ in 1...6 {
-    println("Random dice roll is \(d6.roll())")
+    print("Random dice roll is \(d6.roll())")
 }
 
 //======================================================
 //                     Delegation
 //======================================================
 
-println()
+print()
 
 protocol DiceGame {
     var dice: Dice { get }
@@ -213,18 +217,18 @@ class DiceGameTracker: DiceGameDelegate {
     func gameDidStart(game: DiceGame) {
         numberOfTurns = 0
         if game is SnakesAndLadders {
-            println("Started a new game of Snakes and Ladders")
+            print("Started a new game of Snakes and Ladders")
         }
-        println("The game is using a \(game.dice.sides) sided dice.")
+        print("The game is using a \(game.dice.sides) sided dice.")
     }
     
     func game(game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int) {
-        ++numberOfTurns
-        println("Rolled a \(diceRoll)")
+        numberOfTurns += 1
+        print("Rolled a \(diceRoll)")
     }
     
     func gameDidEnd(game: DiceGame) {
-        println("The game lasted for \(numberOfTurns) turn(s)")
+        print("The game lasted for \(numberOfTurns) turn(s)")
     }
 }
 
@@ -237,7 +241,7 @@ game.play()
 //     Adding Protocol Conformance with an Extension
 //======================================================
 
-println()
+print()
 
 protocol TextRepresentable {
     func asText() -> String
@@ -250,7 +254,7 @@ extension Dice: TextRepresentable {
 }
 
 let d12 = Dice(sides: 12, generator: LinearConguentialGenerator())
-println(d12.asText())
+print(d12.asText())
 
 extension SnakesAndLadders: TextRepresentable {
     func asText() -> String {
@@ -258,7 +262,7 @@ extension SnakesAndLadders: TextRepresentable {
     }
 }
 
-println(game.asText())
+print(game.asText())
 
 // Declaring Protocol Adoption with an Extension
 struct Hamster {
@@ -272,24 +276,25 @@ extension Hamster: TextRepresentable {}
 
 let simonTheHamster = Hamster(name: "Simon")
 let somethingTextRepresentable: TextRepresentable = simonTheHamster
-println(simonTheHamster.asText())
+print(simonTheHamster.asText())
 
 //======================================================
 //            Collections of Protocol Types
 //======================================================
 
-println()
+print()
 
 let things: [TextRepresentable] = [game, d12, simonTheHamster]
+
 for thing in things {
-    println(thing.asText())
+    print(thing.asText())
 }
 
 //======================================================
 //                Protocol Inheritance
 //======================================================
 
-println()
+print()
 
 protocol PrettyTextRepresentable: TextRepresentable {
     func asPrettyText() -> String
@@ -298,6 +303,7 @@ protocol PrettyTextRepresentable: TextRepresentable {
 extension SnakesAndLadders: PrettyTextRepresentable {
     func asPrettyText() -> String {
         var output = asText() + ":\n"
+
         for index in 1...finalSquare {
             switch board[index] {
             case let ladder where ladder > 0:
@@ -313,13 +319,13 @@ extension SnakesAndLadders: PrettyTextRepresentable {
     }
 }
 
-println(game.asPrettyText())
+print(game.asPrettyText())
 
 //======================================================
 //               Class-Only Protocols
 //======================================================
 
-println()
+print()
 
 protocol SomeInheritedProtocol {}
 protocol SomeClassOnlyProtocol: class, SomeInheritedProtocol {
@@ -330,7 +336,7 @@ protocol SomeClassOnlyProtocol: class, SomeInheritedProtocol {
 //                Protocol Composition
 //======================================================
 
-println()
+print()
 
 protocol Named {
     var name: String { get }
@@ -346,7 +352,7 @@ struct Human: Named, Aged {
 }
 
 func wishHappyBirthday(celebrator: protocol<Named, Aged>) {
-    println("Happy Birthday \(celebrator.name) - youre \(celebrator.age)")
+    print("Happy Birthday \(celebrator.name) - youre \(celebrator.age)")
 }
 
 let birthdayHuman = Human(name: "Malcom", age: 23)
@@ -356,7 +362,7 @@ wishHappyBirthday(birthdayHuman)
 //         Checking for Protocol Conformance
 //======================================================
 
-println()
+print()
 
 @objc protocol HasArea {
     var area: Double { get }
@@ -365,13 +371,13 @@ println()
 class Circle: HasArea {
     let pi = 3.14159
     var radius: Double
-    var area: Double { return pi * radius * radius }
+    @objc var area: Double { return pi * radius * radius }
 
     init(radius: Double) { self.radius = radius }
 }
 
 class Country: HasArea {
-    var area: Double
+    @objc var area: Double
 
     init(area: Double) { self.area = area }
 }
@@ -390,9 +396,9 @@ let objects: [AnyObject] = [
 
 for object in objects {
     if let objectWithArea = object as? HasArea {
-        println("Area is \(objectWithArea.area)")
+        print("Area is \(objectWithArea.area)")
     } else {
-        println("Something that doesn't have an area")
+        print("Something that doesn't have an area")
     }
 }
 
@@ -400,41 +406,42 @@ for object in objects {
 //           Optional Protocol Requirements
 //======================================================
 
-println()
+print()
 
 @objc protocol CounterDataSource {
     optional func incrementForCount(count: Int) -> Int
     optional var fixedIncrement: Int { get }
 }
 
-@objc class Counter {
+class Counter {
     var count = 0
     var dataSource: CounterDataSource?
 
     func increment() {
         if let amount = dataSource?.incrementForCount?(count) {
             count += amount
-        } else if let amount = dataSource?.fixedIncrement? {
+        } else if let amount = dataSource?.fixedIncrement {
             count += amount
         }
     }
 }
 
 class ThreeSource: CounterDataSource {
-    let fixedIncrement = 3
+    @objc let fixedIncrement = 3
 }
 
 var counter = Counter()
 counter.dataSource = ThreeSource()
+
 for _ in 1...4 {
     counter.increment()
-    println(counter.count)
+    print(counter.count)
 }
 
-println()
+print()
 
 class TowardsZeroSource: CounterDataSource {
-    func incrementForCount(count: Int) -> Int {
+    @objc func incrementForCount(count: Int) -> Int {
         if count == 0 {
             return 0
         } else if count < 0 {
@@ -447,7 +454,8 @@ class TowardsZeroSource: CounterDataSource {
 
 counter.count = -4
 counter.dataSource = TowardsZeroSource()
+
 for _ in 1...5 {
     counter.increment()
-    println(counter.count)
+    print(counter.count)
 }

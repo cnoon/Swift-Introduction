@@ -77,7 +77,7 @@ struct TrackedString {
     private(set) var numberOfEdits = 0
     var value: String = "" {
         didSet {
-            numberOfEdits++
+            numberOfEdits += 1
         }
     }
 }
@@ -86,13 +86,14 @@ var stringToEdit = TrackedString()
 stringToEdit.value = "This string will be tracked."
 stringToEdit.value += " This edit will increment numberOfEdits."
 stringToEdit.value += " So will this one."
-println("The number of edits is \(stringToEdit.numberOfEdits)")
+print("The number of edits is \(stringToEdit.numberOfEdits)")
 
 public struct PublicTrackedString {
     public private(set) var numberOfEdits = 0
+
     var value: String = "" {
         didSet {
-            numberOfEdits++
+            numberOfEdits += 1
         }
     }
 }

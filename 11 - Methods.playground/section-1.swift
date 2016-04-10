@@ -7,7 +7,7 @@
 class Counter {
     var count = 0
     func increment() {
-        ++count
+        count += 1
     }
     func incrementBy(amount: Int) {
         count += amount
@@ -51,7 +51,7 @@ struct Point {
 
 let somePoint = Point(x: 4.0, y: 5.0)
 if somePoint.isToTheRightOfX(1.0) {
-    println("This point is to the right of the line where x == 1.0")
+    print("This point is to the right of the line where x == 1.0")
 }
 
 // Modifying value types from within instance methods
@@ -154,8 +154,9 @@ player.completedLevel(1)
 LevelTracker.highestUnlockedLevel
 
 player = Player(name: "Beto")
+
 if player.tracker.advanceToLevel(6) {
-    println("player is now at level 6")
+    print("player is now at level 6")
 } else {
-    println("level 6 has not been unlocked yet")
+    print("level 6 has not been unlocked yet")
 }

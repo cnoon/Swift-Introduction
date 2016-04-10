@@ -25,24 +25,26 @@ directionToHead = .East
 
 // Matching enum values with a switch statement that is exhaustive
 directionToHead = .South
+
 switch directionToHead {
 case .North:
-    println("Lots of planets have a north")
+    print("Lots of planets have a north")
 case .South:
-    println("Watch out for penguins")
+    print("Watch out for penguins")
 case .East:
-    println("Where the sun rises")
+    print("Where the sun rises")
 case .West:
-    println("Where the skies are blue")
+    print("Where the skies are blue")
 }
 
 // Matching enum values with a switch statement that is NOT exhaustive
 let somePlanet = Planet.Earth
+
 switch somePlanet {
 case .Earth:
-    println("Mostly harmless")
+    print("Mostly harmless")
 default:
-    println("Not a safe place for humans...yet!")
+    print("Not a safe place for humans...yet!")
 }
 
 //=======================================
@@ -61,17 +63,17 @@ productBarcode = .QRCode("ABCDEFGHIJKLMNOP")
 // Declare each associated value as a constant
 switch productBarcode {
 case .UPCA(let numberSystem, let manufacturer, let product, let check):
-    println("UPC-A: \(numberSystem), \(manufacturer), \(product), \(check)")
+    print("UPC-A: \(numberSystem), \(manufacturer), \(product), \(check)")
 case .QRCode(let productCode):
-    println("QR Code: \(productCode)")
+    print("QR Code: \(productCode)")
 }
 
 // Declare the entire enumeration member as a constant
 switch productBarcode {
 case let .UPCA(numberSystem, manufacturer, product, check):
-    println("UPC-A: \(numberSystem), \(manufacturer), \(product), \(check)")
+    print("UPC-A: \(numberSystem), \(manufacturer), \(product), \(check)")
 case let .QRCode(productCode):
-    println("QR Code: \(productCode)")
+    print("QR Code: \(productCode)")
 }
 
 //=======================================
@@ -90,18 +92,19 @@ enum PlanetRaw: Int {
     case Mercury = 1, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
 }
 
-let earthsOrder = PlanetRaw.Earth.toRaw()
-let possiblePlanet = PlanetRaw.fromRaw(7)
+let earthsOrder = PlanetRaw.Earth.rawValue
+let possiblePlanet = PlanetRaw(rawValue: 7)
 
 // Enumeration fromRaw method combined with optional binding
 let positionToFind = 9
-if let somePlanet = PlanetRaw.fromRaw(positionToFind) {
+
+if let somePlanet = PlanetRaw(rawValue: positionToFind) {
     switch somePlanet {
     case .Earth:
-        println("Mostly harmless")
+        print("Mostly harmless")
     default:
-        println("Not a safe place for humans...yet!")
+        print("Not a safe place for humans...yet!")
     }
 } else {
-    println("There isn't a planet at position \(positionToFind)")
+    print("There isn't a planet at position \(positionToFind)")
 }

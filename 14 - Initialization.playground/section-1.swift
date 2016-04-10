@@ -70,9 +70,11 @@ struct Celsius2 {
     init(_ celsius: Double) { // _ allows you to remove external parameter requirement
         temperatureInCelsius = celsius
     }
+
     init(fromFahrenheit fahrenheit: Double) {
         temperatureInCelsius = (fahrenheit - 32.0) / 1.8
     }
+
     init(fromKelvin kelvin: Double) {
         temperatureInCelsius = kelvin - 273.15
     }
@@ -90,7 +92,7 @@ class SurveyQuestion {
     }
     
     func ask() {
-        println(text)
+        print(text)
     }
 }
 
@@ -110,7 +112,7 @@ class SurveyQuestion2 {
     }
     
     func ask() {
-        println(text)
+        print(text)
     }
 }
 
@@ -181,6 +183,7 @@ class Vehicle {
         return "\(numberOfWheels) wheel(s)"
     }
 }
+
 class Bicycle: Vehicle {
     override init() {
         super.init()
@@ -199,11 +202,12 @@ class Food {
     var name: String
     
     init(name: String) {
-        println("Food init:name")
+        print("Food init:name")
         self.name = name
     }
+
     convenience init() {
-        println("Food convenience init")
+        print("Food convenience init")
         self.init(name: "[Unnamed]")
     }
 }
@@ -212,12 +216,13 @@ class RecipeIntegredient: Food {
     var quantity: Int
     
     init(name: String, quantity: Int) {
-        println("RecipeIntegredient init:name:quantity")
+        print("RecipeIntegredient init:name:quantity")
         self.quantity = quantity
         super.init(name: name)
     }
+
     override convenience init(name: String) {
-        println("RecipeIntegredient convenience init:name")
+        print("RecipeIntegredient convenience init:name")
         self.init(name: name, quantity: 1)
     }
 }
@@ -243,10 +248,12 @@ var breakfastList = [
     ShoppingListItem(name: "Bacon"),
     ShoppingListItem(name: "Eggs", quantity: 6)
 ]
+
 breakfastList[0].name = "Orange Juice"
 breakfastList[0].purchased = true
+
 for item in breakfastList {
-    println(item.description)
+    print(item.description)
 }
 
 // Required initializers
@@ -255,6 +262,7 @@ class SomeClass {
         // init implementation goes here
     }
 }
+
 class SomeSubclass: SomeClass {
     required init() {
         // subclass implementation goes here
@@ -269,6 +277,7 @@ struct Checkerboard {
     let boardColors: [Bool] = {
         var temporaryBoard = [Bool]()
         var isBlack = false
+
         for i in 1...10 {
             for j in 1...10 {
                 temporaryBoard.append(isBlack)
